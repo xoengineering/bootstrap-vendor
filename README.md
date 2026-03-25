@@ -1,43 +1,211 @@
-# Bootstrap::Vendor
+# bootstrap-vendor
 
-TODO: Delete this and the text below, and describe your gem
+Rake tasks to vendor [Bootstrap](https://getbootstrap.com) CSS and JS into your Rails app. No asset pipeline, no npm, no build system. Just static files in `vendor/`.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/bootstrap/vendor`. To experiment with that code, run `bin/console` for an interactive prompt.
+## Install
 
-## Installation
+Add to your Gemfile:
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
-
-Install the gem and add to the application's Gemfile by executing:
-
-```bash
-bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+```ruby
+gem 'bootstrap-vendor'
 ```
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+Then:
 
-```bash
-gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+```sh
+bundle install
 ```
 
-## Usage
+In a Rails app, the rake tasks are loaded automatically via Railtie.
 
-TODO: Write usage instructions here
+## Quick start
 
-## Development
+```sh
+rake bootstrap:vendor
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+This creates a `.bootstrap-version` file and downloads the latest Bootstrap CSS and JS into `vendor/stylesheets/` and `vendor/javascript/`.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+## Rake tasks
 
-## Contributing
+### `bootstrap:vendor`
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/veganstraightedge/bootstrap-vendor. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/veganstraightedge/bootstrap-vendor/blob/main/CODE_OF_CONDUCT.md).
+The opinionated, does-it-all shortcut. Creates `.bootstrap-version`, downloads the latest Bootstrap files, and you're done.
+
+```sh
+rake bootstrap:vendor
+```
+
+### `bootstrap:version`
+
+Prints the current version from `.bootstrap-version`.
+
+```sh
+rake bootstrap:version
+# 5.3.8
+```
+
+### `bootstrap:latest`
+
+Prints the latest known Bootstrap version. Accepts an optional constraint.
+
+```sh
+rake bootstrap:latest
+# 5.3.8
+
+rake bootstrap:latest[5]
+# 5.3.8
+
+rake bootstrap:latest[4]
+# 4.6.2
+
+rake bootstrap:latest['5.2']
+# 5.2.3
+```
+
+### `bootstrap:status`
+
+Compares your current version to the latest upstream.
+
+```sh
+rake bootstrap:status
+# Current version 5.3.8 is up to date
+
+rake bootstrap:status
+# Current version 5.2.3 is behind latest version 5.3.8
+```
+
+### `bootstrap:init`
+
+Creates a `.bootstrap-version` file. Defaults to the latest version.
+
+```sh
+rake bootstrap:init
+# A .bootstrap-version file was created.
+# Version: 5.3.8
+
+rake bootstrap:init['4']
+# A .bootstrap-version file was created.
+# Version: 4.6.2
+
+rake bootstrap:init['overwrite']
+# Overwrites an existing .bootstrap-version
+```
+
+### `bootstrap:install`
+
+Downloads Bootstrap CSS and JS files. Fails if already installed (use `update` instead).
+
+```sh
+rake bootstrap:install
+```
+
+### `bootstrap:update`
+
+Downloads Bootstrap CSS and JS files, overwriting existing ones.
+
+```sh
+rake bootstrap:update
+# Bootstrap updated from 5.3.5 to 5.3.8
+```
+
+### `bootstrap:uninstall`
+
+Removes vendored Bootstrap files and `.bootstrap-version`.
+
+```sh
+rake bootstrap:uninstall
+```
+
+## Default files
+
+By default, these files are downloaded:
+
+```
+vendor/stylesheets/bootstrap.css
+vendor/stylesheets/bootstrap.css.map
+vendor/javascript/bootstrap.bundle.js
+vendor/javascript/bootstrap.bundle.js.map
+```
+
+## Configuration
+
+Customize which files are downloaded with environment variables. These are the defaults:
+
+| ENV variable | Default | Effect |
+|---|---|---|
+| `BOOTSTRAP_VENDOR_CSS_LTR` | `true` | Download LTR CSS |
+| `BOOTSTRAP_VENDOR_CSS_RTL` | `false` | Download RTL CSS |
+| `BOOTSTRAP_VENDOR_CSS_MAP` | `true` | Download CSS source maps |
+| `BOOTSTRAP_VENDOR_CSS_MIN` | `false` | Download minified CSS |
+| `BOOTSTRAP_VENDOR_JS_BUNDLE` | `true` | Download bundle (includes Popper) vs plain |
+| `BOOTSTRAP_VENDOR_JS_MAP` | `true` | Download JS source maps |
+| `BOOTSTRAP_VENDOR_JS_MIN` | `false` | Download minified JS |
+
+At least one of `CSS_LTR` or `CSS_RTL` must be `true`.
+
+Example: download minified files without source maps:
+
+```sh
+BOOTSTRAP_VENDOR_CSS_MIN=true BOOTSTRAP_VENDOR_CSS_MAP=false \
+BOOTSTRAP_VENDOR_JS_MIN=true BOOTSTRAP_VENDOR_JS_MAP=false \
+rake bootstrap:install
+```
+
+## Download sources
+
+Files are downloaded from multiple sources with automatic fallback for resilience:
+
+1. [jsdelivr CDN](https://www.jsdelivr.com) (npm)
+2. [jsdelivr CDN](https://www.jsdelivr.com) (GitHub)
+3. [GitHub raw files](https://raw.githubusercontent.com)
+4. [GitHub releases](https://github.com/twbs/bootstrap/releases) (zip)
+
+Pin a specific source with:
+
+```sh
+BOOTSTRAP_VENDOR_SOURCE=github_raw rake bootstrap:install
+```
+
+Valid source names: `jsdelivr_npm`, `jsdelivr_github`, `github_raw`, `github_api`.
+
+## Version constraints
+
+Several tasks accept version constraints. The constraint finds the latest version within that major or minor:
+
+| Constraint | Resolves to |
+|---|---|
+| `5` | Latest 5.x.y (e.g., 5.3.8) |
+| `5.3` | Latest 5.3.x (e.g., 5.3.8) |
+| `5.3.5` | Latest 5.3.x (e.g., 5.3.8) |
+| `4` | Latest 4.x.y (e.g., 4.6.2) |
+
+## Using with Rails
+
+Add Bootstrap to your asset paths. In `config/initializers/assets.rb`:
+
+```ruby
+Rails.application.config.assets.paths << Rails.root.join('vendor/stylesheets')
+Rails.application.config.assets.paths << Rails.root.join('vendor/javascript')
+```
+
+Or with importmaps, pin the JS in `config/importmap.rb`:
+
+```ruby
+pin 'bootstrap', to: 'bootstrap.bundle.js'
+```
+
+And add a stylesheet link in your layout:
+
+```erb
+<%= stylesheet_link_tag 'bootstrap', 'data-turbo-track': 'reload' %>
+```
+
+## Requirements
+
+- Ruby >= 4.0
+- Rails (for automatic Railtie loading) or any Ruby project with Rake
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the Bootstrap::Vendor project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/veganstraightedge/bootstrap-vendor/blob/main/CODE_OF_CONDUCT.md).
+MIT. See [LICENSE.txt](LICENSE.txt).
