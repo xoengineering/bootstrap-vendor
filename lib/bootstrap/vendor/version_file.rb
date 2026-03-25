@@ -30,11 +30,9 @@ module Bootstrap
       private
 
       def resolve_path path
-        if File.directory? path
-          File.join path, FILENAME
-        else
-          path
-        end
+        return path unless File.directory? path
+
+        File.join path, FILENAME
       end
     end
   end
