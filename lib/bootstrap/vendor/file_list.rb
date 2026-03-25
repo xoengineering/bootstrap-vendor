@@ -1,5 +1,3 @@
-require 'fileutils'
-
 module Bootstrap
   module Vendor
     class FileList

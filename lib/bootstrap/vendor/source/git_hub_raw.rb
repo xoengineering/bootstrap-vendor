@@ -1,5 +1,3 @@
-require 'down'
-
 module Bootstrap
   module Vendor
     module Source

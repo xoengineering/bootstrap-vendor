@@ -1,3 +1,8 @@
+require 'down'
+require 'fileutils'
+require 'tmpdir'
+require 'zip'
+
 require_relative 'vendor/config'
 require_relative 'vendor/file_list'
 require_relative 'vendor/registry'
