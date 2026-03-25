@@ -1,3 +1,5 @@
+require 'zip'
+
 module Bootstrap
   module Vendor
     module Source
