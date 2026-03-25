@@ -11,7 +11,7 @@ module Bootstrap
         return all.last if constraint.nil?
 
         requirement = build_requirement(constraint.to_s)
-        matches     = all.select { requirement.satisfied_by?(Gem::Version.new(it)) }
+        matches     = all.select { requirement.satisfied_by? Gem::Version.new it }
 
         raise Error, "No versions matching '#{constraint}'" if matches.empty?
 

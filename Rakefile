@@ -26,7 +26,6 @@ task :versions do
       tag     = release['tag_name'].delete_prefix 'v'
       version = Gem::Version.new tag
 
-      next if release['prerelease']
       next if version.prerelease?
 
       versions << tag

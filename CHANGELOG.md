@@ -1,3 +1,5 @@
+# Changelog
+
 ## [Unreleased]
 
 - Add download source fallback chain (JSDelivrNPM, JSDelivrGitHub, GitHubRaw, GitHubAPI)
