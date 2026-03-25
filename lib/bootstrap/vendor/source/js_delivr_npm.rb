@@ -7,7 +7,7 @@ module Bootstrap
         def name = 'jsdelivr_npm'
 
         def url_for version:, subdir:, filename:
-          "#{BASE_URL}#{version}/dist/#{subdir}/#{filename}"
+          [BASE_URL, version, '/dist/', subdir, '/', filename].join
         end
 
         def download_file version:, subdir:, filename:, destination:
