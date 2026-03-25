@@ -1,7 +1,3 @@
-require 'down'
-require 'fileutils'
-require 'tmpdir'
-
 RSpec.describe Bootstrap::Vendor::Source::GitHubAPI do
   subject(:source) { described_class.new }
 

@@ -1,6 +1,3 @@
-require 'fileutils'
-require 'tmpdir'
-
 RSpec.describe Bootstrap::Vendor::VersionFile do
   subject(:version_file) { described_class.new(path:) }
 

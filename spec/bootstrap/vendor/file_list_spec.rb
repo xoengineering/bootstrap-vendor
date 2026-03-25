@@ -1,6 +1,3 @@
-require 'fileutils'
-require 'tmpdir'
-
 RSpec.describe Bootstrap::Vendor::FileList do
   subject(:file_list) { described_class.new(config:, version:, root:) }
 

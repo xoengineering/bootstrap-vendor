@@ -1,7 +1,3 @@
-require 'down'
-require 'fileutils'
-require 'tmpdir'
-
 RSpec.describe Bootstrap::Vendor::FileList, '#download' do
   subject(:file_list) { described_class.new(config:, version:, root:, sources: [source]) }
 

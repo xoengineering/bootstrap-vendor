@@ -1,6 +1,4 @@
-require 'fileutils'
 require 'rake'
-require 'tmpdir'
 
 RSpec.describe 'bootstrap rake tasks' do # rubocop:disable RSpec/DescribeClass
   before(:all) do # rubocop:disable RSpec/BeforeAfterAll
