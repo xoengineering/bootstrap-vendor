@@ -1,5 +1,6 @@
 ## [Unreleased]
 
+- Add Config for ENV-based settings with opinionated defaults
 - Add VersionFile to read/write .bootstrap-version files
 - Add Registry with hardcoded list of all stable Bootstrap versions and constraint matching
 
