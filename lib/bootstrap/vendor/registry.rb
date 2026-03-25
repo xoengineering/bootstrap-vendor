@@ -10,15 +10,24 @@ module Bootstrap
       def self.latest constraint: nil
         return all.last if constraint.nil?
 
-        prefix = constraint.to_s
-        parts  = prefix.split '.'
-        prefix = parts[0..1].join('.') if parts.length == 3 # TODO: why exactly 3?
+        requirement = build_requirement(constraint.to_s)
+        matches     = all.select { requirement.satisfied_by?(Gem::Version.new(it)) }
 
-        matches = all.select { it.start_with?("#{prefix}.") || it == prefix } # TODO: use Gem::Version ?
         raise Error, "No versions matching '#{constraint}'" if matches.empty?
 
         matches.last
       end
+
+      def self.build_requirement constraint
+        segments = Gem::Version.new(constraint).segments
+
+        case segments.length
+        when 1    then Gem::Requirement.new("~> #{segments[0]}.0")
+        when 2, 3 then Gem::Requirement.new("~> #{segments[0]}.#{segments[1]}.0")
+        end
+      end
+
+      private_class_method :build_requirement
 
       def self.reset!
         @all = nil
