@@ -4,9 +4,10 @@ module Bootstrap
   module Vendor
     module Source
       class GitHubAPI
+        NAME = 'github_api'.freeze
         BASE_URL = 'https://github.com/twbs/bootstrap/releases/download/v'.freeze
 
-        def name = 'github_api'
+        def name = NAME
 
         def url_for version:, subdir: nil, filename: nil # rubocop:disable Lint/UnusedMethodArgument
           [BASE_URL, version, '/bootstrap-', version, '-dist.zip'].join

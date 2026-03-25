@@ -2,9 +2,10 @@ module Bootstrap
   module Vendor
     module Source
       class JSDelivrNPM
+        NAME = 'jsdelivr_npm'.freeze
         BASE_URL = 'https://cdn.jsdelivr.net/npm/bootstrap@'.freeze
 
-        def name = 'jsdelivr_npm'
+        def name = NAME
 
         def url_for version:, subdir:, filename:
           [BASE_URL, version, '/dist/', subdir, '/', filename].join

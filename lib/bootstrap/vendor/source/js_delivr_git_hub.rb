@@ -2,9 +2,10 @@ module Bootstrap
   module Vendor
     module Source
       class JSDelivrGitHub
+        NAME = 'jsdelivr_github'.freeze
         BASE_URL = 'https://cdn.jsdelivr.net/gh/twbs/bootstrap@v'.freeze
 
-        def name = 'jsdelivr_github'
+        def name = NAME
 
         def url_for version:, subdir:, filename:
           [BASE_URL, version, '/dist/', subdir, '/', filename].join
