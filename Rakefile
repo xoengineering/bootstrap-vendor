@@ -37,7 +37,7 @@ task :versions do
 
   versions.sort_by! { Gem::Version.new(it) }
 
-  versions_path = File.expand_path('VERSIONS', __dir__)
+  versions_path = File.expand_path('VERSIONS.txt', __dir__)
   current = File.readlines(versions_path, chomp: true).reject(&:empty?)
   new_versions = versions - current
 

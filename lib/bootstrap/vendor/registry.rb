@@ -1,7 +1,7 @@
 module Bootstrap
   module Vendor
     module Registry
-      VERSIONS_PATH = File.expand_path('../../../VERSIONS', __dir__).freeze
+      VERSIONS_PATH = File.expand_path('../../../VERSIONS.txt', __dir__).freeze
 
       def self.all
         @all ||= File.readlines(VERSIONS_PATH, chomp: true).reject(&:empty?)
