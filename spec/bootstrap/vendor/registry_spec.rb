@@ -25,7 +25,7 @@ RSpec.describe Bootstrap::Vendor::Registry do
     it 'returns versions sorted ascending' do
       versions = described_class.all
 
-      expect(versions).to eq(versions.sort_by { Gem::Version.new(it) })
+      expect(versions).to eq(versions.sort_by { Gem::Version.new it })
     end
   end
 

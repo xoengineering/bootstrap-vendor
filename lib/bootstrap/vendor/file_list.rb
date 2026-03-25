@@ -13,7 +13,7 @@ module Bootstrap
       end
 
       def installed
-        expected.map { it[:destination] }.select { File.exist?(it) }
+        expected.map { it[:destination] }.select { File.exist? it }
       end
 
       def download
