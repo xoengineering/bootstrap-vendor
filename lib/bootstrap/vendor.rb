@@ -1,3 +1,4 @@
+require_relative 'vendor/registry'
 require_relative 'vendor/version'
 
 module Bootstrap
