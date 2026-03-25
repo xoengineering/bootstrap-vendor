@@ -13,7 +13,7 @@ module Bootstrap
         def download_file version:, subdir:, filename:, destination:
           require 'down'
 
-          Down.download(url_for(version:, subdir:, filename:), destination:)
+          Down.download url_for(version:, subdir:, filename:), destination:
         end
       end
     end
