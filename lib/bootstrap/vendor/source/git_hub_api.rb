@@ -9,16 +9,17 @@ module Bootstrap
         def name = 'github_api'
 
         def url_for version:, subdir: nil, filename: nil # rubocop:disable Lint/UnusedMethodArgument
-          "#{BASE_URL}#{version}/bootstrap-#{version}-dist.zip"
+          [BASE_URL, version, '/bootstrap-', version, '-dist.zip'].join
         end
 
         def download_file version:, subdir:, filename:, destination:
-          zip = cached_zip(version:)
+          zip        = cached_zip(version:)
           entry_path = "bootstrap-#{version}-dist/#{subdir}/#{filename}"
-          entry = zip.find_entry(entry_path)
+          entry      = zip.find_entry(entry_path)
+
           raise Down::NotFound, "#{entry_path} not found in zip" unless entry
 
-          File.binwrite(destination, entry.get_input_stream.read)
+          File.binwrite destination, entry.get_input_stream.read
         end
 
         private
@@ -32,8 +33,8 @@ module Bootstrap
           require 'down'
           require 'tmpdir'
 
-          tempfile = Down.download(url_for(version:))
-          Zip::File.open(tempfile.path)
+          tempfile = Down.download url_for(version:)
+          Zip::File.open tempfile.path
         end
       end
     end
