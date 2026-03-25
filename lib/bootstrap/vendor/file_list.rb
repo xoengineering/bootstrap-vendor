@@ -17,6 +17,18 @@ module Bootstrap
         expected.map { it[:destination] }.select { File.exist?(it) }
       end
 
+      def download
+        require 'down'
+        require 'fileutils'
+
+        dirs = expected.map { File.dirname(it[:destination]) }.uniq
+        dirs.each { FileUtils.mkdir_p(it) }
+
+        expected.each do |entry|
+          Down.download(entry[:url], destination: entry[:destination])
+        end
+      end
+
       private
 
       def css_entries

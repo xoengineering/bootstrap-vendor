@@ -1,5 +1,6 @@
 ## [Unreleased]
 
+- Add FileList#download to fetch files from jsdelivr CDN
 - Add FileList to compute expected/installed files with CDN URLs
 - Add Config for ENV-based settings with opinionated defaults
 - Add VersionFile to read/write .bootstrap-version files
