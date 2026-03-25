@@ -9,3 +9,5 @@ module Bootstrap
     class Error < StandardError; end
   end
 end
+
+require_relative 'vendor/railtie' if defined?(Rails::Railtie)

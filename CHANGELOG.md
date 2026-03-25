@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+- Add rake tasks: version, latest, status, init, install, update, vendor, uninstall
+- Add Railtie to load rake tasks in Rails apps
+- Add VersionFile#delete and #path accessor
 - Add FileList#download to fetch files from jsdelivr CDN
 - Add FileList to compute expected/installed files with CDN URLs
 - Add Config for ENV-based settings with opinionated defaults
