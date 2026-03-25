@@ -6,6 +6,7 @@ require_relative 'source/js_delivr_npm'
 module Bootstrap
   module Vendor
     module Source
+      # TODO: use symbol keys
       SOURCES = {
         'jsdelivr_npm'    => JSDelivrNPM,
         'jsdelivr_github' => JSDelivrGitHub,
@@ -13,9 +14,10 @@ module Bootstrap
         'github_api'      => GitHubAPI
       }.freeze
 
+      # TODO: use symbol array
       DEFAULT_ORDER = %w[jsdelivr_npm jsdelivr_github github_raw github_api].freeze
 
-      def self.for name
+      def initialize name
         klass = SOURCES[name]
         raise Error, "Unknown source: '#{name}'. Valid sources: #{SOURCES.keys.join(', ')}" unless klass
 

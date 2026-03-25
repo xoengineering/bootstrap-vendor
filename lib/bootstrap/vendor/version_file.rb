@@ -6,7 +6,7 @@ module Bootstrap
       attr_reader :path
 
       def initialize path:
-        @path = resolve_path(path)
+        @path = resolve_path path
       end
 
       def delete
@@ -24,7 +24,7 @@ module Bootstrap
       end
 
       def write version:
-        File.write(@path, "#{version}\n")
+        File.write @path, "#{version}\n"
       end
 
       private
