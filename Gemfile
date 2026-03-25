@@ -1,13 +1,11 @@
-# frozen_string_literal: true
+source 'https://rubygems.org'
 
-source "https://rubygems.org"
-
-# Specify your gem's dependencies in bootstrap-vendor.gemspec
 gemspec
 
-gem "irb"
-gem "rake", "~> 13.0"
-
-gem "rspec", "~> 3.0"
-
-gem "rubocop", "~> 1.21"
+gem 'irb', '~> 1.17'
+gem 'rake', '~> 13.3'
+gem 'rspec', '~> 3.13'
+gem 'rubocop', '~> 1.86'
+gem 'rubocop-performance', '~> 1.26'
+gem 'rubocop-rake', '~> 0.7'
+gem 'rubocop-rspec', '~> 3.9'

@@ -16,6 +16,7 @@ Gem::Specification.new do |spec|
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = 'https://github.com/veganstraightedge/bootstrap-vendor'
   spec.metadata['changelog_uri'] = 'https://github.com/veganstraightedge/bootstrap-vendor/blob/main/CHANGELOG.md'
+  spec.metadata['rubygems_mfa_required'] = 'true'
 
   gemspec = File.basename(__FILE__)
   spec.files = IO.popen(%w[git ls-files -z], chdir: __dir__, err: IO::NULL) do |ls|
@@ -28,6 +29,6 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'down', '~> 5.4'
-  spec.add_dependency 'http', '~> 5.2'
+  spec.add_dependency 'down', '~> 5.5'
+  spec.add_dependency 'http', '~> 6.0'
 end
