@@ -1,12 +1,11 @@
 module Bootstrap
   module Vendor
     class FileList
-      CDN_BASE = 'https://cdn.jsdelivr.net/npm/bootstrap@'.freeze
-
-      def initialize config:, version:, root: '.'
+      def initialize config:, version:, root: '.', sources: nil
         @config  = config
         @version = version
         @root    = root
+        @sources = sources || Source.default_chain
       end
 
       def expected
@@ -18,18 +17,36 @@ module Bootstrap
       end
 
       def download
-        require 'down'
         require 'fileutils'
 
         dirs = expected.map { File.dirname(it[:destination]) }.uniq
         dirs.each { FileUtils.mkdir_p(it) }
 
         expected.each do |entry|
-          Down.download(entry[:url], destination: entry[:destination])
+          download_with_fallback(entry)
         end
       end
 
       private
+
+      def download_with_fallback entry
+        errors = []
+
+        @sources.each do |source|
+          source.download_file(
+            version:     @version,
+            subdir:      entry[:subdir],
+            filename:    entry[:filename],
+            destination: entry[:destination]
+          )
+          errors.clear
+          break
+        rescue Down::Error, Zip::Error, IOError => e
+          errors << e
+        end
+
+        raise errors.last unless errors.empty?
+      end
 
       def css_entries
         filenames = []
@@ -61,7 +78,7 @@ module Bootstrap
       def build_entry filename:, subdir:, local_path:
         {
           filename:,
-          url:         "#{CDN_BASE}#{@version}/dist/#{subdir}/#{filename}",
+          subdir:,
           destination: File.join(@root, local_path, filename)
         }
       end

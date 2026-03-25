@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Add download source fallback chain (JSDelivrNPM, JSDelivrGitHub, GitHubRaw, GitHubAPI)
+- Support BOOTSTRAP_VENDOR_SOURCE ENV var to pin a specific source
 - Add `rake versions` maintainer task to update VERSIONS from GitHub
 - Extract version list to flat VERSIONS file, read by Registry at runtime
 - Add rake tasks: version, latest, status, init, install, update, vendor, uninstall

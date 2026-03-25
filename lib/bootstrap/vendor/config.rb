@@ -9,6 +9,7 @@ module Bootstrap
         @js_bundle  = env_bool('BOOTSTRAP_VENDOR_JS_BUNDLE', default: true)
         @js_map     = env_bool('BOOTSTRAP_VENDOR_JS_MAP', default: true)
         @js_min     = env_bool('BOOTSTRAP_VENDOR_JS_MIN', default: false)
+        @source     = ENV.fetch('BOOTSTRAP_VENDOR_SOURCE', nil)
 
         validate!
       end
@@ -22,6 +23,7 @@ module Bootstrap
       def js_map? = @js_map
       def js_min? = @js_min
       def js_path = 'vendor/javascript'
+      attr_reader :source
 
       private
 

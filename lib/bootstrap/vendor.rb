@@ -1,6 +1,7 @@
 require_relative 'vendor/config'
 require_relative 'vendor/file_list'
 require_relative 'vendor/registry'
+require_relative 'vendor/source'
 require_relative 'vendor/version'
 require_relative 'vendor/version_file'
 

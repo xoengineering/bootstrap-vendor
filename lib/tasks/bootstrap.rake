@@ -1,5 +1,13 @@
 require 'bootstrap/vendor'
 
+def bootstrap_sources config
+  if config.source
+    [Bootstrap::Vendor::Source.for(config.source)]
+  else
+    Bootstrap::Vendor::Source.default_chain
+  end
+end
+
 namespace :bootstrap do
   desc 'Print the current Bootstrap version from .bootstrap-version'
   task :version, [:path] do |_t, args|
@@ -84,7 +92,8 @@ namespace :bootstrap do
     constraint = args[:version]
     resolved = Bootstrap::Vendor::Registry.latest(constraint:)
     config = Bootstrap::Vendor::Config.new
-    file_list = Bootstrap::Vendor::FileList.new(config:, version: resolved, root: path)
+    sources = bootstrap_sources(config)
+    file_list = Bootstrap::Vendor::FileList.new(config:, version: resolved, root: path, sources:)
 
     file_list.download
 
@@ -109,7 +118,8 @@ namespace :bootstrap do
     constraint = args[:version]
     resolved = Bootstrap::Vendor::Registry.latest(constraint:)
     config = Bootstrap::Vendor::Config.new
-    file_list = Bootstrap::Vendor::FileList.new(config:, version: resolved, root: path)
+    sources = bootstrap_sources(config)
+    file_list = Bootstrap::Vendor::FileList.new(config:, version: resolved, root: path, sources:)
 
     file_list.download
 
@@ -134,7 +144,8 @@ namespace :bootstrap do
 
     resolved = Bootstrap::Vendor::Registry.latest
     config = Bootstrap::Vendor::Config.new
-    file_list = Bootstrap::Vendor::FileList.new(config:, version: resolved, root: path)
+    sources = bootstrap_sources(config)
+    file_list = Bootstrap::Vendor::FileList.new(config:, version: resolved, root: path, sources:)
 
     file_list.download
 

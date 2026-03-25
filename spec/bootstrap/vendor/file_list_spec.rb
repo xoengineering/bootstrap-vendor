@@ -25,12 +25,14 @@ RSpec.describe Bootstrap::Vendor::FileList do
         )
       end
 
-      it 'includes jsdelivr CDN URLs' do
+      it 'includes subdir for each entry' do
         expected = file_list.expected
 
-        expect(expected.first[:url]).to eq(
-          'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.css'
-        )
+        css_entries = expected.select { it[:subdir] == 'css' }
+        js_entries = expected.select { it[:subdir] == 'js' }
+
+        expect(css_entries.length).to eq(2)
+        expect(js_entries.length).to eq(2)
       end
 
       it 'includes destination paths under root' do

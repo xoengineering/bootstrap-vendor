@@ -31,4 +31,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'down', '~> 5.5'
   spec.add_dependency 'http', '~> 6.0'
+  spec.add_dependency 'rubyzip', '~> 3.2'
 end
