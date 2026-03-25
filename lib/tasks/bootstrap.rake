@@ -179,9 +179,9 @@ namespace :bootstrap do
     config    = Bootstrap::Vendor::Config.new
     file_list = Bootstrap::Vendor::FileList.new config:, version: current, root: path
 
-    file_list.installed.each do |dest| # TODO: expand abbrev
-      File.delete dest
-      puts "Deleted #{dest}"
+    file_list.installed.each do |destination|
+      File.delete destination
+      puts "Deleted #{destination}"
     end
 
     version_file.delete
