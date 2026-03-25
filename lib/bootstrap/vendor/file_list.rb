@@ -19,12 +19,10 @@ module Bootstrap
       def download
         require 'fileutils'
 
-        dirs = expected.map { File.dirname(it[:destination]) }.uniq
-        dirs.each { FileUtils.mkdir_p(it) }
+        dirs = expected.map { File.dirname it[:destination] }.uniq
+        dirs.each { FileUtils.mkdir_p it }
 
-        expected.each do |entry|
-          download_with_fallback(entry)
-        end
+        expected.each { download_with_fallback it }
       end
 
       private

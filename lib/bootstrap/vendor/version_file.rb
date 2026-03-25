@@ -10,11 +10,11 @@ module Bootstrap
       end
 
       def delete
-        File.delete(@path) if exists?
+        File.delete @path if exists?
       end
 
       def exists?
-        File.exist?(@path)
+        File.exist? @path
       end
 
       def read
@@ -30,8 +30,8 @@ module Bootstrap
       private
 
       def resolve_path path
-        if File.directory?(path)
-          File.join(path, FILENAME)
+        if File.directory? path
+          File.join path, FILENAME
         else
           path
         end

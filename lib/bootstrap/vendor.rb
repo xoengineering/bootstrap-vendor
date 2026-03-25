@@ -11,4 +11,4 @@ module Bootstrap
   end
 end
 
-require_relative 'vendor/railtie' if defined?(Rails::Railtie)
+require_relative 'vendor/railtie' if defined? Rails::Railtie

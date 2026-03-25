@@ -11,10 +11,10 @@ module Bootstrap
         return all.last if constraint.nil?
 
         prefix = constraint.to_s
-        parts = prefix.split('.')
-        prefix = parts[0..1].join('.') if parts.length == 3
+        parts  = prefix.split '.'
+        prefix = parts[0..1].join('.') if parts.length == 3 # TODO: why exactly 3?
 
-        matches = all.select { it.start_with?("#{prefix}.") || it == prefix }
+        matches = all.select { it.start_with?("#{prefix}.") || it == prefix } # TODO: use Gem::Version ?
         raise Error, "No versions matching '#{constraint}'" if matches.empty?
 
         matches.last
