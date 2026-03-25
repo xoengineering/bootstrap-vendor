@@ -1,3 +1,5 @@
+require 'down'
+
 module Bootstrap
   module Vendor
     module Source
@@ -12,8 +14,6 @@ module Bootstrap
         end
 
         def download_file version:, subdir:, filename:, destination:
-          require 'down'
-
           Down.download url_for(version:, subdir:, filename:), destination:
         end
       end

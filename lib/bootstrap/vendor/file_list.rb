@@ -1,3 +1,5 @@
+require 'fileutils'
+
 module Bootstrap
   module Vendor
     class FileList
@@ -17,8 +19,6 @@ module Bootstrap
       end
 
       def download
-        require 'fileutils'
-
         dirs = expected.map { File.dirname it[:destination] }.uniq
         dirs.each { FileUtils.mkdir_p it }
 

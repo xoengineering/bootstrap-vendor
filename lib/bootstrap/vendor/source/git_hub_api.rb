@@ -1,3 +1,5 @@
+require 'down'
+require 'tmpdir'
 require 'zip'
 
 module Bootstrap
@@ -31,9 +33,6 @@ module Bootstrap
         end
 
         def download_zip version:
-          require 'down'
-          require 'tmpdir'
-
           tempfile = Down.download url_for(version:)
           Zip::File.open tempfile.path
         end
