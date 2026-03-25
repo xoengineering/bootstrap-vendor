@@ -15,7 +15,7 @@ module Bootstrap
 
       DEFAULT_ORDER = %i[jsdelivr_npm jsdelivr_github github_raw github_api].freeze
 
-      def initialize name
+      def self.build name
         klass = SOURCES[name.to_sym]
         raise Error, "Unknown source: '#{name}'. Valid sources: #{SOURCES.keys.join(', ')}" unless klass
 

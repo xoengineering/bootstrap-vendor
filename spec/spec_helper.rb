@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 require 'bootstrap/vendor'
 
 RSpec.configure do |config|

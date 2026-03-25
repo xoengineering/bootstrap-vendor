@@ -2,7 +2,7 @@ require 'bootstrap/vendor'
 
 def bootstrap_sources config
   if config.source
-    [Bootstrap::Vendor::Source.new(config.source)]
+    [Bootstrap::Vendor::Source.build(config.source)]
   else
     Bootstrap::Vendor::Source.default_chain
   end
