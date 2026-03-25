@@ -28,10 +28,6 @@ module Bootstrap
       end
 
       private_class_method :build_requirement
-
-      def self.reset!
-        @all = nil
-      end
     end
   end
 end
