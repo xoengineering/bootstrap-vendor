@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Add `rake versions` maintainer task to update VERSIONS from GitHub
+- Extract version list to flat VERSIONS file, read by Registry at runtime
 - Add rake tasks: version, latest, status, init, install, update, vendor, uninstall
 - Add Railtie to load rake tasks in Rails apps
 - Add VersionFile#delete and #path accessor
