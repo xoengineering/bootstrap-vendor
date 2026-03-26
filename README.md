@@ -171,14 +171,16 @@ Valid source names: `jsdelivr_npm`, `jsdelivr_github`, `github_raw`, `github_api
 
 Several tasks accept version constraints. The constraint finds the latest version within that major or minor:
 
-| Constraint | Resolves to |
-|---|---|
-| `5` | Latest 5.x.y (e.g., 5.3.8) |
-| `5.3` | Latest 5.3.x (e.g., 5.3.8) |
-| `5.3.5` | Latest 5.3.x (e.g., 5.3.8) |
-| `4` | Latest 4.x.y (e.g., 4.6.2) |
+| Constraint | Resolves to                |
+| ---------- | -------------------------- |
+| `5`        | Latest 5.x.y (e.g., 5.3.8) |
+| `5.3`      | Latest 5.3.x (e.g., 5.3.8) |
+| `5.3.5`    | Latest 5.3.x (e.g., 5.3.8) |
+| `4`        | Latest 4.x.y (e.g., 4.6.2) |
 
-## Usage with Rails
+## Usage
+
+### In Rails
 
 Add Bootstrap to your asset paths. In `config/initializers/assets.rb`:
 
@@ -199,7 +201,11 @@ And add a stylesheet link in your layout:
 <%= stylesheet_link_tag 'bootstrap', 'data-turbo-track': 'reload' %>
 ```
 
-## Usage within zsh
+### In non-Rails
+
+TKTK: usage instructions go here
+
+### From zsh (command line shell)
 
 zsh interprets `[]` as glob patterns. Escape the brackets when passing arguments to rake tasks:
 
