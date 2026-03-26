@@ -121,7 +121,7 @@ rake bootstrap:uninstall
 
 By default, these files are downloaded:
 
-```
+```sh
 vendor/stylesheets/bootstrap.css
 vendor/stylesheets/bootstrap.css.map
 vendor/javascript/bootstrap.bundle.js
@@ -132,24 +132,22 @@ vendor/javascript/bootstrap.bundle.js.map
 
 Customize which files are downloaded with environment variables. These are the defaults:
 
-| ENV variable | Default | Effect |
-|---|---|---|
-| `BOOTSTRAP_VENDOR_CSS_LTR` | `true` | Download LTR CSS |
-| `BOOTSTRAP_VENDOR_CSS_RTL` | `false` | Download RTL CSS |
-| `BOOTSTRAP_VENDOR_CSS_MAP` | `true` | Download CSS source maps |
-| `BOOTSTRAP_VENDOR_CSS_MIN` | `false` | Download minified CSS |
-| `BOOTSTRAP_VENDOR_JS_BUNDLE` | `true` | Download bundle (includes Popper) vs plain |
-| `BOOTSTRAP_VENDOR_JS_MAP` | `true` | Download JS source maps |
-| `BOOTSTRAP_VENDOR_JS_MIN` | `false` | Download minified JS |
+| ENV variable                 | Default | Effect                                     |
+| ---------------------------- | ------- | ------------------------------------------ |
+| `BOOTSTRAP_VENDOR_CSS_LTR`   | `true`  | Download LTR CSS                           |
+| `BOOTSTRAP_VENDOR_CSS_RTL`   | `false` | Download RTL CSS                           |
+| `BOOTSTRAP_VENDOR_CSS_MAP`   | `true`  | Download CSS source maps                   |
+| `BOOTSTRAP_VENDOR_CSS_MIN`   | `false` | Download minified CSS                      |
+| `BOOTSTRAP_VENDOR_JS_BUNDLE` | `true`  | Download bundle (includes Popper) vs plain |
+| `BOOTSTRAP_VENDOR_JS_MAP`    | `true`  | Download JS source maps                    |
+| `BOOTSTRAP_VENDOR_JS_MIN`    | `false` | Download minified JS                       |
 
 At least one of `CSS_LTR` or `CSS_RTL` must be `true`.
 
 Example: download minified files without source maps:
 
 ```sh
-BOOTSTRAP_VENDOR_CSS_MIN=true BOOTSTRAP_VENDOR_CSS_MAP=false \
-BOOTSTRAP_VENDOR_JS_MIN=true BOOTSTRAP_VENDOR_JS_MAP=false \
-rake bootstrap:install
+BOOTSTRAP_VENDOR_CSS_MIN=true BOOTSTRAP_VENDOR_CSS_MAP=false BOOTSTRAP_VENDOR_JS_MIN=true BOOTSTRAP_VENDOR_JS_MAP=false rake bootstrap:install
 ```
 
 ## Download sources
@@ -180,7 +178,7 @@ Several tasks accept version constraints. The constraint finds the latest versio
 | `5.3.5` | Latest 5.3.x (e.g., 5.3.8) |
 | `4` | Latest 4.x.y (e.g., 4.6.2) |
 
-## Using with Rails
+## Usage with Rails
 
 Add Bootstrap to your asset paths. In `config/initializers/assets.rb`:
 
@@ -201,7 +199,7 @@ And add a stylesheet link in your layout:
 <%= stylesheet_link_tag 'bootstrap', 'data-turbo-track': 'reload' %>
 ```
 
-## zsh users
+## Usage within zsh
 
 zsh interprets `[]` as glob patterns. Escape the brackets when passing arguments to rake tasks:
 
