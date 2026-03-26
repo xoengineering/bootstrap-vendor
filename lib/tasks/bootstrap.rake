@@ -175,23 +175,24 @@ namespace :bootstrap do
     version_file = Bootstrap::Vendor::VersionFile.new(path:)
     current      = version_file.read
     config       = Bootstrap::Vendor::Config.new
+    file_list    = Bootstrap::Vendor::FileList.new config:, version: current || '0', root: path
+    deleted      = false
 
-    if current
-      file_list = Bootstrap::Vendor::FileList.new config:, version: current, root: path
-
-      file_list.installed.each do |destination|
-        File.delete destination
-        puts "Deleted #{destination}"
-      end
+    file_list.installed.each do |destination|
+      File.delete destination
+      puts "Deleted #{destination}"
+      deleted = true
     end
 
     if version_file.exists?
       version_file.delete
       puts 'Deleted .bootstrap-version'
+      deleted = true
     end
 
-    if current
-      puts "Bootstrap #{current} uninstalled."
+    if deleted
+      message = current ? "Bootstrap #{current} uninstalled." : 'Bootstrap uninstalled.'
+      puts message
     else
       puts 'No Bootstrap installation found.'
     end
