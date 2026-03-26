@@ -82,6 +82,15 @@ noglob rake bootstrap:init[overwrite]
 
 ## Rake tasks
 
+- [`bootstrap:vendor`](#bootstrapvendor) — do it all shortcut
+- [`bootstrap:version`](#bootstrapversion) — print current version
+- [`bootstrap:latest`](#bootstraplatest) — print latest upstream version
+- [`bootstrap:status`](#bootstrapstatus) — compare current to latest
+- [`bootstrap:init`](#bootstrapinit) — create .bootstrap-version
+- [`bootstrap:install`](#bootstrapinstall) — download files
+- [`bootstrap:update`](#bootstrapupdate) — update files
+- [`bootstrap:uninstall`](#bootstrapuninstall) — remove files
+
 ### `bootstrap:vendor`
 
 The opinionated, does-it-all shortcut. Creates `.bootstrap-version`, downloads the latest Bootstrap files, and you're done.
