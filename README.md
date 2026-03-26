@@ -203,7 +203,24 @@ And add a stylesheet link in your layout:
 
 ### In non-Rails
 
-TKTK: usage instructions go here
+Add the gem:
+
+```sh
+gem install bootstrap-vendor
+```
+
+Create a `Rakefile` (or add to an existing one):
+
+```ruby
+require 'bootstrap/vendor'
+load 'tasks/bootstrap.rake'
+```
+
+Then use the rake tasks as normal:
+
+```sh
+rake bootstrap:vendor
+```
 
 ### From zsh (command line shell)
 

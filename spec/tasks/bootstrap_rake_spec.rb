@@ -134,7 +134,7 @@ RSpec.describe 'bootstrap rake tasks' do # rubocop:disable RSpec/DescribeClass
     it 'prints message when nothing to uninstall' do
       output = run_task('bootstrap:uninstall', tmp_dir)
 
-      expect(output).to include('Nothing to uninstall')
+      expect(output).to include('No Bootstrap installation found.')
     end
   end
 end

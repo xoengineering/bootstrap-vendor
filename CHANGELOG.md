@@ -6,6 +6,11 @@
 
 ## [Unreleased]
 
+- Fix install to check for existing files instead of just .bootstrap-version
+- Fix uninstall to clean up files even without .bootstrap-version
+- Add non-Rails usage instructions to README
+- Add zsh escaping notes to README
+- Remove simplecov dependency
 - Add download source fallback chain (JSDelivrNPM, JSDelivrGitHub, GitHubRaw, GitHubAPI)
 - Support BOOTSTRAP_VENDOR_SOURCE ENV var to pin a specific source
 - Add `rake versions` maintainer task to update VERSIONS from GitHub

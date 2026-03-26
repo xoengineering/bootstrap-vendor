@@ -83,19 +83,23 @@ namespace :bootstrap do
   task :install, [:version, :path] do |_t, args|
     path         = args[:path] || '.'
     version_file = Bootstrap::Vendor::VersionFile.new(path:)
+    constraint   = args[:version]
+    resolved     = if version_file.exists? && constraint.nil?
+                     version_file.read
+                   else
+                     Bootstrap::Vendor::Registry.latest(constraint:)
+                   end
 
-    if version_file.exists?
+    config    = Bootstrap::Vendor::Config.new
+    sources   = bootstrap_sources config
+    file_list = Bootstrap::Vendor::FileList.new(config:, version: resolved, root: path, sources:)
+
+    if file_list.installed.length == file_list.expected.length
       puts 'Bootstrap is already installed.'
-      puts "Version: #{version_file.read}"
+      puts "Version: #{resolved}"
       puts "Use 'rake bootstrap:update' to update."
       next
     end
-
-    constraint = args[:version]
-    resolved   = Bootstrap::Vendor::Registry.latest(constraint:)
-    config     = Bootstrap::Vendor::Config.new
-    sources    = bootstrap_sources config
-    file_list  = Bootstrap::Vendor::FileList.new(config:, version: resolved, root: path, sources:)
 
     file_list.download
 
@@ -169,23 +173,27 @@ namespace :bootstrap do
   task :uninstall, [:path] do |_t, args|
     path         = args[:path] || '.'
     version_file = Bootstrap::Vendor::VersionFile.new(path:)
+    current      = version_file.read
+    config       = Bootstrap::Vendor::Config.new
 
-    unless version_file.exists?
-      puts 'No .bootstrap-version file found. Nothing to uninstall.'
-      next
+    if current
+      file_list = Bootstrap::Vendor::FileList.new config:, version: current, root: path
+
+      file_list.installed.each do |destination|
+        File.delete destination
+        puts "Deleted #{destination}"
+      end
     end
 
-    current   = version_file.read
-    config    = Bootstrap::Vendor::Config.new
-    file_list = Bootstrap::Vendor::FileList.new config:, version: current, root: path
-
-    file_list.installed.each do |destination|
-      File.delete destination
-      puts "Deleted #{destination}"
+    if version_file.exists?
+      version_file.delete
+      puts 'Deleted .bootstrap-version'
     end
 
-    version_file.delete
-    puts 'Deleted .bootstrap-version'
-    puts "Bootstrap #{current} uninstalled."
+    if current
+      puts "Bootstrap #{current} uninstalled."
+    else
+      puts 'No Bootstrap installation found.'
+    end
   end
 end
