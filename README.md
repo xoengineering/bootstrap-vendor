@@ -182,7 +182,7 @@ vendor/javascript/bootstrap.bundle.js
 vendor/javascript/bootstrap.bundle.js.map
 ```
 
-## Configuration
+### Configuration
 
 Customize which files are downloaded with environment variables. These are the defaults:
 
