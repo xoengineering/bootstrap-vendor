@@ -59,7 +59,7 @@ rake bootstrap:latest[5]
 rake bootstrap:latest[4]
 # 4.6.2
 
-rake bootstrap:latest['5.2']
+rake bootstrap:latest[5.2]
 # 5.2.3
 ```
 
@@ -84,11 +84,11 @@ rake bootstrap:init
 # A .bootstrap-version file was created.
 # Version: 5.3.8
 
-rake bootstrap:init['4']
+rake bootstrap:init[4]
 # A .bootstrap-version file was created.
 # Version: 4.6.2
 
-rake bootstrap:init['overwrite']
+rake bootstrap:init[overwrite]
 # Overwrites an existing .bootstrap-version
 ```
 
@@ -199,6 +199,16 @@ And add a stylesheet link in your layout:
 
 ```erb
 <%= stylesheet_link_tag 'bootstrap', 'data-turbo-track': 'reload' %>
+```
+
+## zsh users
+
+zsh interprets `[]` as glob patterns. Escape the brackets when passing arguments to rake tasks:
+
+```sh
+rake 'bootstrap:init[overwrite]'
+rake bootstrap:init\[overwrite\]
+noglob rake bootstrap:init[overwrite]
 ```
 
 ## Requirements
