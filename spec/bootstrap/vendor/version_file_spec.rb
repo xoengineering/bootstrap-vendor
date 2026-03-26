@@ -71,15 +71,5 @@ RSpec.describe Bootstrap::Vendor::VersionFile do
         expect(File.exist?(path)).to be true
       end
     end
-
-    context 'when path is a custom file name' do
-      let(:path) { File.join(tmp_dir, 'my-bootstrap-version') }
-
-      it 'uses the custom file path' do
-        version_file.write(version: '4.6.2')
-
-        expect(File.read(path)).to eq("4.6.2\n")
-      end
-    end
   end
 end

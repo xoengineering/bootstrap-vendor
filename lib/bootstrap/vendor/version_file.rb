@@ -24,15 +24,18 @@ module Bootstrap
       end
 
       def write version:
+        FileUtils.mkdir_p File.dirname(@path)
         File.write @path, "#{version}\n"
       end
 
       private
 
       def resolve_path path
-        return path unless File.directory? path
-
-        File.join path, FILENAME
+        if File.directory?(path) || !path.end_with?(FILENAME)
+          File.join path, FILENAME
+        else
+          path
+        end
       end
     end
   end
