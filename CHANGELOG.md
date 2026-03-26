@@ -4,22 +4,13 @@
 
 ## [0.1.0] - 2026-03-26
 
-- Initial release
-
-- Fix install to check for existing files instead of just .bootstrap-version
-- Fix uninstall to clean up files even without .bootstrap-version
-- Add non-Rails usage instructions to README
-- Add zsh escaping notes to README
-- Remove simplecov dependency
-- Add download source fallback chain (JSDelivrNPM, JSDelivrGitHub, GitHubRaw, GitHubAPI)
-- Support BOOTSTRAP_VENDOR_SOURCE ENV var to pin a specific source
-- Add `rake versions` maintainer task to update VERSIONS from GitHub
-- Extract version list to flat VERSIONS file, read by Registry at runtime
-- Add rake tasks: version, latest, status, init, install, update, vendor, uninstall
+- Add rake tasks: vendor, version, latest, status, init, install, update, uninstall
 - Add Railtie to load rake tasks in Rails apps
-- Add VersionFile#delete and #path accessor
-- Add FileList#download to fetch files from jsdelivr CDN
-- Add FileList to compute expected/installed files with CDN URLs
-- Add Config for ENV-based settings with opinionated defaults
+- Add Registry with all stable Bootstrap versions and constraint matching via Gem::Requirement
 - Add VersionFile to read/write .bootstrap-version files
-- Add Registry with hardcoded list of all stable Bootstrap versions and constraint matching
+- Add Config for ENV-based settings with opinionated defaults
+- Add FileList to compute expected/installed files and download with source fallback
+- Add download source fallback chain (JSDelivrNPM, JSDelivrGitHub, GitHubRaw, GitHubAPI)
+- Support BOOTSTRAP_VENDOR_SOURCE ENV var to pin a specific download source
+- Extract version list to flat VERSIONS.txt file, read by Registry at runtime
+- Add `rake versions` maintainer task to update VERSIONS.txt from GitHub releases
