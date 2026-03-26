@@ -1,10 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
 ## [0.1.0] - 2026-03-26
 
 - Initial release
-
-## [Unreleased]
 
 - Fix install to check for existing files instead of just .bootstrap-version
 - Fix uninstall to clean up files even without .bootstrap-version
