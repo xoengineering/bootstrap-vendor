@@ -230,9 +230,31 @@ BOOTSTRAP_VENDOR_SOURCE=github_raw rake bootstrap:install
 
 Valid source names: `jsdelivr_npm`, `jsdelivr_github`, `github_raw`, `github_api`.
 
-## Version constraints
+## Optional arguments
 
-Several tasks accept version constraints. The constraint finds the latest version within that major or minor:
+### Path, where to install
+
+Most tasks accept an optional `path` argument. By default, tasks operate in the current directory. Pass a path to target a different location:
+
+```sh
+rake 'bootstrap:vendor[public/assets]'
+rake 'bootstrap:version[public/assets]'
+```
+
+The `.bootstrap-version` file and `vendor/` directories are created relative to the given path.
+
+Tasks that accept `path`: `vendor`, `version`, `status`, `init`, `install`, `update`, `uninstall`.
+
+For tasks that accept both `version` and `path` (`status`, `init`, `install`, `update`), `version` is the first positional arg. To pass only a path, leave version empty:
+
+```sh
+rake 'bootstrap:install[5, public/assets]'
+rake 'bootstrap:install[, public/assets]'
+```
+
+### Version constraint, what to install
+
+`latest`, `status`, `init`, `install`, and `update` accept version constraints. The constraint finds the latest version within that major or minor:
 
 | Constraint | Resolves to                |
 | ---------- | -------------------------- |
