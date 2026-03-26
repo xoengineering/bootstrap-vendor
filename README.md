@@ -26,6 +26,60 @@ rake bootstrap:vendor
 
 This creates a `.bootstrap-version` file and downloads the latest Bootstrap CSS and JS into `vendor/stylesheets/` and `vendor/javascript/`.
 
+## Usage
+
+### In Rails
+
+Add Bootstrap to your asset paths. In `config/initializers/assets.rb`:
+
+```ruby
+Rails.application.config.assets.paths << Rails.root.join('vendor/stylesheets')
+Rails.application.config.assets.paths << Rails.root.join('vendor/javascript')
+```
+
+Or with importmaps, pin the JS in `config/importmap.rb`:
+
+```ruby
+pin 'bootstrap', to: 'bootstrap.bundle.js'
+```
+
+And add a stylesheet link in your layout:
+
+```erb
+<%= stylesheet_link_tag 'bootstrap', 'data-turbo-track': 'reload' %>
+```
+
+### In non-Rails
+
+Add the gem:
+
+```sh
+gem install bootstrap-vendor
+```
+
+Create a `Rakefile` (or add to an existing one):
+
+```ruby
+require 'bootstrap/vendor'
+load 'tasks/bootstrap.rake'
+```
+
+Then use the rake tasks as normal:
+
+```sh
+rake bootstrap:vendor
+```
+
+### From zsh (command line shell)
+
+zsh interprets `[]` as glob patterns. Escape the brackets when passing arguments to rake tasks:
+
+```sh
+rake 'bootstrap:init[overwrite]'
+rake bootstrap:init\[overwrite\]
+noglob rake bootstrap:init[overwrite]
+```
+
 ## Rake tasks
 
 ### `bootstrap:vendor`
@@ -177,60 +231,6 @@ Several tasks accept version constraints. The constraint finds the latest versio
 | `5.3`      | Latest 5.3.x (e.g., 5.3.8) |
 | `5.3.5`    | Latest 5.3.x (e.g., 5.3.8) |
 | `4`        | Latest 4.x.y (e.g., 4.6.2) |
-
-## Usage
-
-### In Rails
-
-Add Bootstrap to your asset paths. In `config/initializers/assets.rb`:
-
-```ruby
-Rails.application.config.assets.paths << Rails.root.join('vendor/stylesheets')
-Rails.application.config.assets.paths << Rails.root.join('vendor/javascript')
-```
-
-Or with importmaps, pin the JS in `config/importmap.rb`:
-
-```ruby
-pin 'bootstrap', to: 'bootstrap.bundle.js'
-```
-
-And add a stylesheet link in your layout:
-
-```erb
-<%= stylesheet_link_tag 'bootstrap', 'data-turbo-track': 'reload' %>
-```
-
-### In non-Rails
-
-Add the gem:
-
-```sh
-gem install bootstrap-vendor
-```
-
-Create a `Rakefile` (or add to an existing one):
-
-```ruby
-require 'bootstrap/vendor'
-load 'tasks/bootstrap.rake'
-```
-
-Then use the rake tasks as normal:
-
-```sh
-rake bootstrap:vendor
-```
-
-### From zsh (command line shell)
-
-zsh interprets `[]` as glob patterns. Escape the brackets when passing arguments to rake tasks:
-
-```sh
-rake 'bootstrap:init[overwrite]'
-rake bootstrap:init\[overwrite\]
-noglob rake bootstrap:init[overwrite]
-```
 
 ## Requirements
 
